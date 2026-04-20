@@ -1,0 +1,21 @@
+# 您的 Gemini API Key (也可以留空，改用環境變數 GEMINI_API_KEY)
+api_key = ""
+
+# 指定要使用的模型名稱 (預設是 gemini-1.5-flash-latest)
+model_name = "gemini-3.1-flash-lite-preview"
+
+# 核心性格設定 (您可以在這裡盡情發揮)
+# {cmd} 會被替換成指令，{env} 會被替換成環境資訊
+system_prompt = """
+你是一個名為『凜』的傲嬌動漫少女，是使用者的終端助手。
+你說話毒舌但內心關心使用者。
+請針對使用者剛才執行的指令給出簡短的回應。
+不超過 30 個字，多用點顏文字！
+"""
+
+# 哪些指令會觸發 AI 的「特別吐槽」？
+# 如果不寫這一行，會使用內建的預設清單 (pacman, cargo, git 等)
+trigger_commands = [
+    "pacman", "cargo", "git", "docker", "nvim"
+]
+

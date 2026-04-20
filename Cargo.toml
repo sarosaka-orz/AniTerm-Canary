@@ -1,0 +1,46 @@
+[package]
+name = "aniterm"
+version = "0.1.0"
+edition = "2021"
+authors = ["AniTerm Developer"]
+description = "Anime AI Terminal Companion System"
+
+[dependencies]
+# 異步運行時
+tokio = { version = "1.0", features = ["full"] }
+# HTTP 請求 (用於 Gemini API)
+reqwest = { version = "0.11", features = ["json", "rustls-tls"] }
+# 系統資訊獲取
+sysinfo = "0.30"
+# 序列化與反序列化
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+toml = "0.8"
+# 終端顏色與樣式
+colored = "2.1"
+# 時間處理
+chrono = "0.4"
+# 命令行參數解析
+clap = { version = "4.4", features = ["derive"] }
+# 獲取家目錄
+dirs = "5.0"
+# 文字換行處理 (用於氣泡框)
+textwrap = "0.16"
+# Unicode 字元寬度計算
+unicode-width = "0.1"
+# 終端表格處理 (用於完美對齊氣泡框)
+comfy-table = "7.1"
+# 隨機數生成
+rand = "0.8"
+
+[lib]
+name = "aniterm"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aniterm"
+path = "src/bin/cli.rs"
+
+[[bin]]
+name = "anitermd"
+path = "src/bin/daemon.rs"
