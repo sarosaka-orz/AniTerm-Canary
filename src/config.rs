@@ -100,6 +100,19 @@ impl Config {
             }
         };
 
+        // 優先順序：環境變數 > 設定檔
+        // 只要環境變數中有設定且不是預留字串，就覆蓋設定檔中的內容
+        if let Ok(env_key) = std::env::var("GEMINI_API_KEY") {
+            if !env_key.is_empty() && env_key != "YOUR_GEMINI_API_KEY_HERE" {
+                println!("DEBUG: 已從環境變數 GEMINI_API_KEY 載入 API Key。");
+                config.api_key = env_key;
+            } else {
+                println!("DEBUG: 環境變數 GEMINI_API_KEY 為空或無效。");
+            }
+        } else {
+            println!("DEBUG: 未偵測到環境變數 GEMINI_API_KEY。");
+        }
+
         // 如果 config.toml 裡有 system_prompt，則覆蓋預設人格的 prompt
         if let Some(custom_prompt) = &config.system_prompt {
             if let Some(rin) = config.personas.iter_mut().find(|p| p.name == "rin") {
@@ -107,13 +120,7 @@ impl Config {
             }
         }
 
-        // 如果 config.toml 裡的 api_key 是空的，嘗試從環境變數讀取
-        if config.api_key.is_empty() || config.api_key == "YOUR_GEMINI_API_KEY_HERE" {
-            if let Ok(env_key) = std::env::var("GEMINI_API_KEY") {
-                config.api_key = env_key;
-            }
-        }
-
         config
     }
 }
+
